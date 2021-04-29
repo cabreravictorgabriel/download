@@ -1,13 +1,15 @@
 import requests
 request = requests.get('http://fast.wistia.net/embed/iframe/ldvcdu9sj6')
 texto = request.text
-ocorrencia = texto.find("bin")
-ocorrencia2 = texto.find("http://embed")
-url = (texto[ocorrencia2:(ocorrencia)]) + 'mp4'
-print (url)
-
-
-
+final = texto.find("bin")
+inicio = texto.find("http://embed")
+url = (texto[inicio:final]) + 'mp4'
+r = requests.get(url)
+f = open('video1.mp4', 'wb')
+for chunk in r.iter_content(chunk_size=255):
+    if chunk:
+        f.write(chunk)
+f.close()
 
 
 '''
